@@ -1748,6 +1748,8 @@ static void qrencodeStructured(const unsigned char *intext, int length, const ch
 			break;
 		case SVG_TYPE:
 		case FSVG1_TYPE:
+		case FSVG2_TYPE:
+		case FSVG3_TYPE:
 			type_suffix = ".svg";
 			break;
 		case XPM_TYPE:
@@ -1823,6 +1825,12 @@ static void qrencodeStructured(const unsigned char *intext, int length, const ch
 			case FSVG1_TYPE:
 				writeFSVG1(p->code, filename);
 				break;
+			case FSVG2_TYPE:
+				writeFSVG2(p->code, filename);
+				break;
+			case FSVG3_TYPE:
+				writeFSVG3(p->code, filename);
+				break;
 			case XPM_TYPE:
 				writeXPM(p->code, filename);
 				break;
@@ -1877,7 +1885,7 @@ int main(int argc, const char** argv)
 	int length = 0;
 	FILE *fp;
 
-	while((opt = getopt_long(argc, argv, optstring, options, &lindex)) != -1) {
+	while ((opt = getopt_long(argc, (char * const *)argv, optstring, options, &lindex)) != -1) {
 		switch(opt) {
 			case 'h':
 				if(lindex == 0) {
